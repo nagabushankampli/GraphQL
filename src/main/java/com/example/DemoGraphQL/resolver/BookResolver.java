@@ -1,7 +1,5 @@
 package com.example.DemoGraphQL.resolver;
 
-import java.util.Optional;
-
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.example.DemoGraphQL.model.Author;
 import com.example.DemoGraphQL.model.Book;
@@ -14,7 +12,7 @@ public class BookResolver implements GraphQLResolver<Book> {
         this.authorRepository = authorRepository;
     }
 
-    public Optional<Author> getAuthor(Book book) {
-        return authorRepository.findById(book.getAuthor().getId());
+    public Author getAuthor(Book book) {
+        return authorRepository.findOne(book.getAuthor().getId());
     }
 }

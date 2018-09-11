@@ -41,16 +41,15 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
     public boolean deleteBook(Long id) {
-        bookRepository.deleteById(id);
+        bookRepository.delete(id);
         return true;
     }
 
     public Book updateBookPageCount(Integer pageCount, Long id) {
-        Optional<Book> optionalBook = bookRepository.findById(id);
-        if(!optionalBook.isPresent() ) {
+        Book book = bookRepository.findOne(id);
+        if(book == null) {
             throw new BookNotFoundException("The book to be updated was found", id);
         }
-        Book book = optionalBook.get();
         book.setPageCount(pageCount);
 
         bookRepository.save(book);
